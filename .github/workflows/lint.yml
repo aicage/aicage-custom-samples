@@ -1,0 +1,30 @@
+name: Lint
+run-name: Lint (${{ github.ref_name }})
+
+"on":
+  push:
+  workflow_call: {}
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6.1.0
+        with:
+          python-version: "3.x"
+
+      - name: Remove Python yq and keep using Go yq
+        run: python -m pip uninstall -y yq
+
+      - name: Install lint deps"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Run lint.sh
+        run: validation/lint.sh
