@@ -24,11 +24,13 @@ RUN --mount=type=bind,source=install.sh,target=/tmp/aicage/install.sh,readonly \
      --mount=type=bind,source=install,target=/tmp/aicage/install,readonly \
     /tmp/aicage/install.sh
 
-# Copy aicage entrypoint.sh
-RUN curl -fsSL \
-      https://github.com/aicage/aicage-image-base/releases/latest/download/entrypoint.sh \
-      -o /usr/local/bin/entrypoint.sh && \
-    chmod +x /usr/local/bin/entrypoint.sh
+# Install aicage entrypoint.sh
+RUN --mount=type=bind,source=helpers,target=/tmp/aicage/helpers,readonly \
+    tmp_dir="$(mktemp -d)" && \
+    /tmp/aicage/helpers/install-cosign.sh && \
+    /tmp/aicage/helpers/get-aicage-release-artifact.sh aicage-image-base "${tmp_dir}" && \
+    cp "${tmp_dir}"/entrypoint.sh /usr/local/bin/entrypoint.sh && \
+    rm -rf "${tmp_dir}"
 
 ENV AICAGE_ENTRYPOINT_CMD=bash
 

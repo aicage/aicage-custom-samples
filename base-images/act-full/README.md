@@ -2,8 +2,10 @@
 
 This custom base-image is based on the largest runner image for `act`.
 
-> `aicage` already provides an image based on the default act runner image.
+> `aicage` already provides an image based on the default act runner image.  
+> This is the much larger version containing all sorts of development tools.
 
 About:
+
 - [act](https://github.com/nektos/act) runs GitHub actions locally in Docker containers.
-- Image homepage: https://github.com/catthehacker/docker_images
+- Image homepage: [https://github.com/catthehacker/docker_images](https://github.com/catthehacker/docker_images)

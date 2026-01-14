@@ -2,10 +2,10 @@
 
 # ## Installation equals to aicage builtin base-images ##
 #
-# Download os-installer scripts from `aicage-image-base` and install what the builtin base-image 'act' does
+# Download os-installer scripts from `aicage-image-base` and run all of them
 #
 # Simply set this variable below to match a folder in:
-# https://github.com/aicage/aicage-image-base/blob/9b51c14f6d27e6a9012be7be102ba9a6e54558a2/scripts/os-installers/distro
+# https://github.com/aicage/aicage-image-base/tree/main/scripts/os-installers/distro
 
 ARG AICAGE_INSTALL_DISTRO=debian
 
@@ -36,45 +36,25 @@ USER root
 
 ARG AICAGE_IMAGE_BASE_DIR=/tmp/aicage-image-base
 
-RUN echo "Setup: Install prerequisites ..." && \
+RUN --mount=type=bind,source=helpers,target=/tmp/aicage/helpers,readonly \
+    echo "Setup: Install prerequisites ..." && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
       curl \
       tar && \
     \
-    mkdir -p "${AICAGE_IMAGE_BASE_DIR}" && \
-    cd "${AICAGE_IMAGE_BASE_DIR}" && \
-    \
-    echo "Setup: Install cosign ..." && \
-    arch=$(uname -m | sed 's/x86_64/amd64/; s/aarch64/arm64/') && \
-    curl -fsSLo cosign "https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-${arch}" && \
-    install -m 0755 cosign /usr/local/bin/cosign && \
-    rm cosign && \
-    \
     echo "Setup: Downloading installation scripts from 'github.com/aicage/aicage-image-base' ..." && \
-    for artifact in aicage-image-base.tar.gz SHA256SUMS SHA256SUMS.sigstore.json; do \
-      curl -fsSLO https://github.com/aicage/aicage-image-base/releases/latest/download/${artifact}; \
-    done && \
-    \
-    echo "Setup: Verifying signature and checksums ..." && \
-    cosign verify-blob \
-      --bundle SHA256SUMS.sigstore.json \
-      --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
-      --certificate-identity-regexp '^https://github\.com/aicage/aicage-image-base/\.github/workflows/release\.yml@refs/tags/.*$' \
-      SHA256SUMS && \
-    sha256sum -c SHA256SUMS && \
-    \
-    echo "Setup: Unpacking ..." && \
-    tar -xzf aicage-image-base.tar.gz && \
+    /tmp/aicage/helpers/install-cosign.sh && \
+    /tmp/aicage/helpers/get-aicage-release-artifact.sh aicage-image-base "${AICAGE_IMAGE_BASE_DIR}" && \
     \
     echo "Install: Running os-installer scripts for distro '${AICAGE_INSTALL_DISTRO}' ..." && \
-    "${AICAGE_IMAGE_BASE_DIR}"/os-installers/distro/${AICAGE_INSTALL_DISTRO}/install.sh && \
+    "${AICAGE_IMAGE_BASE_DIR}/os-installers/distro/${AICAGE_INSTALL_DISTRO}/install.sh" && \
     \
     echo "Install: Copy aicage entrypoint.sh ..." && \
-    cp "${AICAGE_IMAGE_BASE_DIR}"/os-installers/entrypoint.sh /usr/local/bin/entrypoint.sh && \
+    cp "${AICAGE_IMAGE_BASE_DIR}"/entrypoint.sh /usr/local/bin/entrypoint.sh && \
     \
     echo "Clean up: Remove downloaded files ..." && \
-    cd && rm -rf "${AICAGE_IMAGE_BASE_DIR}"
+    rm -rf "${AICAGE_IMAGE_BASE_DIR}"
 
 ENV AICAGE_ENTRYPOINT_CMD=bash
 
