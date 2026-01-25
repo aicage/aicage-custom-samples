@@ -132,7 +132,7 @@ pip install check-jsonschema
 echo "Validate agent.yml files with schema"
 check-jsonschema \
   --schemafile validation/agent.schema.json \
-  agents/*/agent.yaml
+  agents/*/agent.yml
 
 echo "Validate base.yml files with schema"
 check-jsonschema \

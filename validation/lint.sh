@@ -17,17 +17,17 @@ fi
 echo "Validate agent.yml files with schema"
 check-jsonschema \
   --schemafile validation/agent.schema.json \
-  agents/*/agent.yaml
+  agents/*/agent.y*ml
 
 echo "Validate base.yml files with schema"
 check-jsonschema \
   --schemafile validation/base.schema.json \
-  base-images/*/base.yml
+  base-images/*/base.y*ml
 
 echo "Validate base.yml files with schema"
 check-jsonschema \
   --schemafile validation/extension.schema.json \
-  extensions/*/extension.yml
+  extensions/*/extension.y*ml
 
 echo "Run  yamllint"
 yamllint .
