@@ -1,6 +1,6 @@
-# Aicage custom base-image: `act-full` (Ubuntu)
+# Aicage custom base-image: `act` (Ubuntu)
 
-This custom base-image is based on the largest runner image for `act`.
+This custom base-image is based on the default runner image for `act`.
 
 About:
 
