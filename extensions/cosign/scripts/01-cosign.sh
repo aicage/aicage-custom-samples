@@ -12,7 +12,7 @@ if command -v apk >/dev/null 2>&1; then
   apk add --no-cache cosign
 elif command -v dpkg >/dev/null 2>&1; then
   # *** Debian ***
-  curl -LO "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST}_amd64.deb"
+  curl -LO "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST_VERSION}_amd64.deb"
   dpkg -i "cosign_${LATEST_VERSION}_amd64.deb"
   rm "cosign_${LATEST_VERSION}_amd64.deb"
 elif command -v rpm >/dev/null 2>&1; then
