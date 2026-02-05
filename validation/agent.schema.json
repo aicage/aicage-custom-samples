@@ -9,10 +9,22 @@
   ],
   "properties": {
     "agent_path": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "directories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
     },
     "agent_full_name": {
       "type": "string"
