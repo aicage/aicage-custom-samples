@@ -7,7 +7,7 @@
 # Simply set this variable below to match a folder in:
 # https://github.com/aicage/aicage-image-base/tree/main/scripts/os-installers/distro
 
-ARG AICAGE_INSTALL_DISTRO=debian
+ARG AICAGE_INSTALL_DISTRO=fedora
 
 ARG FROM_IMAGE
 
