@@ -31,13 +31,7 @@ RUN --mount=type=bind,source=helpers,target=/tmp/aicage/helpers,readonly \
     cp "${tmp_dir}"/entrypoint.sh /usr/local/bin/entrypoint.sh && \
     rm -rf "${tmp_dir}"
 
-RUN --mount=type=bind,source=scripts,target=/tmp/aicage/scripts,readonly \
-    install -m 0755 /tmp/aicage/scripts/aicage-monitor /usr/local/bin/aicage-monitor && \
-    install -m 0755 /tmp/aicage/scripts/healthcheck.sh /usr/local/bin/healthcheck.sh
-
 ENV AICAGE_ENTRYPOINT_CMD=bash
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["/usr/local/bin/healthcheck.sh"]
 
 # Use tini from PATH to work across distros (e.g. Alpine installs it in /sbin).
 ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
