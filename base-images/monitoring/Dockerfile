@@ -65,3 +65,31 @@ ENV AICAGE_ENTRYPOINT_CMD=bash
 
 # Use tini from PATH to work across distros (e.g. Alpine installs it in /sbin).
 ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
+
+ARG HERAKLES_VERSION=v0.1
+
+RUN set -eux && \
+    dnf -y makecache && \
+    export HERAKLES_BASE_URL="https://github.com/herakles-now/herakles-node-exporter/releases/download/${HERAKLES_VERSION}" && \
+    cd /tmp && \
+    curl -fsSLO "${HERAKLES_BASE_URL}/herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz" && \
+    curl -fsSLO "${HERAKLES_BASE_URL}/herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz.sha256" && \
+    sha256sum -c "herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz.sha256" && \
+    tar -xzf "herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz" && \
+    install -m 0755 /tmp/herakles-node-exporter /usr/local/bin/herakles-node-exporter
+
+RUN --mount=type=bind,source=files,target=/tmp/aicage/files,readonly \
+    install -d /etc/herakles && \
+    install -m 0644 /tmp/aicage/files/node-exporter.yaml /etc/herakles/node-exporter.yaml && \
+    install -m 0755 /tmp/aicage/files/monitoring-entrypoint.sh /usr/local/bin/monitoring-entrypoint.sh
+
+# Clean up apt and installation scripts from aicage-image-base
+RUN dnf clean all && \
+    rm -rf /tmp/aicage/helpers-run /tmp/herakles-node-exporter*
+
+EXPOSE 9215
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "/dev/null", "http://localhost:9215/health"]
+
+# Use tini and a monitoring wrapper that starts Herakles before the normal aicage entrypoint.
+ENTRYPOINT ["tini", "--", "/usr/local/bin/monitoring-entrypoint.sh"]
