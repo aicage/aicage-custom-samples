@@ -38,7 +38,9 @@ RUN echo "Setup: Install minimal set of tools used below and in scripts ..." && 
       curl \
       gnupg \
       jq \
+      procps \
       tar \
+      wget \
       xz-utils
 
 ARG AICAGE_IMAGE_BASE_DIR=/tmp/aicage-image-base
@@ -72,13 +74,33 @@ RUN "${AICAGE_IMAGE_BASE_DIR}/os-installers/distro/${AICAGE_INSTALL_DISTRO}/inst
 RUN echo "Install: Copy aicage entrypoint.sh ..." && \
     cp "${AICAGE_IMAGE_BASE_DIR}"/entrypoint.sh /usr/local/bin/entrypoint.sh
 
+ARG HERAKLES_VERSION=v0.1
+
+RUN set -eux; \
+    export HERAKLES_BASE_URL="https://github.com/herakles-now/herakles-node-exporter/releases/download/${HERAKLES_VERSION}"; \
+    cd /tmp; \
+    curl -fsSLO "${HERAKLES_BASE_URL}/herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz"; \
+    curl -fsSLO "${HERAKLES_BASE_URL}/herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz.sha256"; \
+    sha256sum -c "herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz.sha256"; \
+    tar -xzf "herakles-node-exporter-${HERAKLES_VERSION}-x86_64-linux.tar.gz"; \
+    install -m 0755 /tmp/herakles-node-exporter /usr/local/bin/herakles-node-exporter
+
+RUN --mount=type=bind,source=files,target=/tmp/aicage/files,readonly \
+    install -d /etc/herakles && \
+    install -m 0644 /tmp/aicage/files/node-exporter.yaml /etc/herakles/node-exporter.yaml && \
+    install -m 0755 /tmp/aicage/files/monitoring-entrypoint.sh /usr/local/bin/monitoring-entrypoint.sh
+
 # Clean up apt and installation scripts from aicage-image-base
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf "${AICAGE_IMAGE_BASE_DIR}" && \
-    rm -rv /tmp/aicage/helpers-run
+    rm -rf /tmp/aicage/helpers-run /tmp/herakles-node-exporter*
 
 ENV AICAGE_ENTRYPOINT_CMD=bash
 
-# Use tini and aicage entrypoint.sh
-ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
+EXPOSE 9215
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "/dev/null", "http://localhost:9215/health"]
+
+# Use tini and a monitoring wrapper that starts Herakles before the normal aicage entrypoint.
+ENTRYPOINT ["tini", "--", "/usr/local/bin/monitoring-entrypoint.sh"]
