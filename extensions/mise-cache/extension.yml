@@ -1,0 +1,6 @@
+name: "Mise Cache"
+description: "Persist mise tool installs and cache on the host"
+shares:
+  - ~/.config/mise
+  - ~/.local/share/mise
+  - ~/.cache/mise

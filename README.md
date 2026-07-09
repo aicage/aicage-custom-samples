@@ -48,6 +48,7 @@ Current extension samples in this repository:
 - `dotnet`: Install the .NET SDK
 - `gcloud`: Install the Google Cloud CLI
 - `gh`: Install GitHub CLI
+- `mise-cache`: Persist default Linux `mise` tool installs and cache on the host
 - `nvidia-cuda`: Install NVIDIA CUDA user-space tooling
 - `php`: Install PHP CLI tooling and Composer
 - `regctl`: Install regctl
@@ -109,6 +110,7 @@ Current custom base-image samples in this repository:
 
 - `act`
 - `debian-mirror`
+- `mise`
 - `minimal`
 - `php`
 
