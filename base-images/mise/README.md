@@ -4,7 +4,7 @@ This is the `minimal` sample adapted to include
 [mise](https://mise.jdx.dev/).
 
 It keeps the existing `minimal` Alpine layout and install scripts, then adds
-`mise` on top.
+`mise` on top and routes Node.js through `mise` instead of the parent image.
 
 Recommended pairing:
 

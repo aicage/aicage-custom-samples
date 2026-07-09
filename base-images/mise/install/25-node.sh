@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-script_dir="$(CDPATH='' cd -- "$(dirname "$0")" && pwd)"
+# xdg-utils: provides xdg-open; required by npm-installed CLI agents to open
+# auth/docs URLs.
+apk add --no-cache xdg-utils
 
-"${script_dir}"/generic/install_node_alpine.sh
+mise use -g node@lts
+
+export PATH="/root/.local/share/mise/shims:${PATH}"
+
+npm config set prefix /usr/local
+
+npm install -g corepack
+corepack enable
