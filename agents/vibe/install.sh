@@ -7,8 +7,8 @@ curl \
   --retry-all-errors \
   --retry-delay 2 \
   --max-time 300 \
-  https://mistral.ai/vibe/install.sh | \
-    UV_TOOL_DIR=/opt/uv/tools \
+  https://mistral.ai/vibe/install.sh |
+  UV_TOOL_DIR=/opt/uv/tools \
     UV_TOOL_BIN_DIR=/usr/local/bin \
     bash
 

@@ -55,7 +55,7 @@ while [[ $# -gt 0 ]]; do
       IMAGE_REF="$2"
       shift 2
       ;;
-    -h|--help)
+    -h | --help)
       usage
       ;;
     --)
@@ -86,7 +86,7 @@ DEFAULT_SUITE_DIR="${SMOKE_DIR}/default"
 [[ -d "${DEFAULT_SUITE_DIR}" ]] || die "Smoke suite folder missing: default"
 
 case "${BASE}" in
-  minimal|debian-mirror)
+  minimal | debian-mirror)
     selected_tests_dir="${tmp_dir}/selected-base-tests"
     mkdir -p "${selected_tests_dir}"
 

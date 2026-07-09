@@ -74,7 +74,7 @@ ln -sf "${cuda_bin_dir}/nvcc" /usr/local/bin/nvcc
 echo "Exposed CUDA compiler on PATH: nvcc"
 
 mkdir -p /usr/local/share/aicage-extensions
-printf '%s\n' "cuda-toolkit" > /usr/local/share/aicage-extensions/nvidia-cuda.txt
+printf '%s\n' "cuda-toolkit" >/usr/local/share/aicage-extensions/nvidia-cuda.txt
 
 if rpm -q cuda-toolkit >/dev/null 2>&1; then
   echo "Verified package install: cuda-toolkit"

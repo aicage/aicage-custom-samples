@@ -23,4 +23,4 @@ PIP_NO_CACHE_DIR=1 \
   PIPX_HOME=${PIPX_HOME} \
   PIPX_BIN_DIR=${PIPX_BIN_DIR} \
   pipx install uv \
-    --pip-args="--no-cache-dir"
+  --pip-args="--no-cache-dir"

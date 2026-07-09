@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
       IMAGE_REF="$2"
       shift 2
       ;;
-    -h|--help)
+    -h | --help)
       usage
       ;;
     *)

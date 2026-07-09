@@ -24,10 +24,10 @@ install_from_archive() {
     x86_64)
       archive_name="google-cloud-cli-linux-x86_64.tar.gz"
       ;;
-    aarch64|arm64)
+    aarch64 | arm64)
       archive_name="google-cloud-cli-linux-arm.tar.gz"
       ;;
-    x86|i386|i686)
+    x86 | i386 | i686)
       archive_name="google-cloud-cli-linux-x86.tar.gz"
       ;;
     *)
@@ -71,11 +71,11 @@ install_from_deb_repo() {
   }
 
   install -d -m 755 /usr/share/keyrings /etc/apt/sources.list.d
-  curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-    | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+  curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg |
+    gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
   printf '%s\n' \
     "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
-    > /etc/apt/sources.list.d/google-cloud-sdk.list
+    >/etc/apt/sources.list.d/google-cloud-sdk.list
 
   apt-get update
   CLOUDSDK_SKIP_PY_COMPILATION=1 apt-get install -y --no-install-recommends google-cloud-cli
@@ -89,7 +89,7 @@ install_from_rpm_repo() {
 
   arch="$(uname -m)"
   case "${arch}" in
-    x86_64|aarch64)
+    x86_64 | aarch64)
       ;;
     *)
       echo "Unsupported architecture for Google Cloud CLI RPM install: ${arch}" >&2
@@ -108,7 +108,7 @@ install_from_rpm_repo() {
     fi
   fi
 
-  if [[ "${major}" =~ ^[0-9]+$ ]] && (( major >= 10 )); then
+  if [[ "${major}" =~ ^[0-9]+$ ]] && ((major >= 10)); then
     baseurl="https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-${arch}"
     gpgkey="https://packages.cloud.google.com/yum/doc/rpm-package-key-v10.gpg"
   else

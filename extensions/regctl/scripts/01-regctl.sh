@@ -3,8 +3,8 @@ set -euo pipefail
 
 ARCH="$(uname -m)"
 case "$ARCH" in
-  x86_64)   ARCH=amd64 ;;
-  aarch64)  ARCH=arm64 ;;
+  x86_64) ARCH=amd64 ;;
+  aarch64) ARCH=arm64 ;;
   *)
     echo "Unsupported architecture: $ARCH" >&2
     exit 1

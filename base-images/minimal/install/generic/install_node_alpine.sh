@@ -8,7 +8,6 @@ apk add --no-cache \
   npm \
   xdg-utils
 
-
 npm config set prefix /usr/local
 
 npm install -g corepack

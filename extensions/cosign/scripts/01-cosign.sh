@@ -18,8 +18,8 @@ case "${ARCH}" in
 esac
 
 # Fetch latest tag
-LATEST_VERSION=$(curl https://api.github.com/repos/sigstore/cosign/releases/latest \
-  | grep tag_name | cut -d : -f2 | tr -d "v\", ")
+LATEST_VERSION=$(curl https://api.github.com/repos/sigstore/cosign/releases/latest |
+  grep tag_name | cut -d : -f2 | tr -d "v\", ")
 
 echo "cosign latest version: ${LATEST_VERSION}"
 

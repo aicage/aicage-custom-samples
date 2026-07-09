@@ -39,7 +39,7 @@ while [[ $# -gt 0 ]]; do
       EXPECT_FAILURE=true
       shift
       ;;
-    -h|--help)
+    -h | --help)
       usage
       ;;
     *)
