@@ -1,0 +1,5 @@
+from_image: ghcr.io/aicage/aicage-image-base:arch
+base_image_distro: Arch Linux
+base_image_description: Pinned base image for Arch users, updated only when local image is deleted
+architectures:
+  - amd64
