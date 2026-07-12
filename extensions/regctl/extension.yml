@@ -1,2 +1,2 @@
-name: "regctl"
-description: "Command line interface to regclient - the OCI client for registry servers and the OCI Image Layout"
+name: "CLI interface to regclient"
+description: "the OCI client for registry servers and the OCI Image Layout"

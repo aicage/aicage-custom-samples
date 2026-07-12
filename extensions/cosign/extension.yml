@@ -1,2 +1,2 @@
 name: "sigstore/cosign"
-description: "Signing OCI containers (and other artifacts) using Sigstore!"
+description: "Signing OCI containers (and other artifacts) using Sigstore"

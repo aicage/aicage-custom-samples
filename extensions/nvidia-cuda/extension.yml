@@ -1,2 +1,2 @@
 name: "NVIDIA CUDA"
-description: "Install NVIDIA CUDA user-space tooling in Debian, Ubuntu, and Fedora images"
+description: "User-space tooling in Debian, Ubuntu, and Fedora images"
