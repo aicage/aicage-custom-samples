@@ -25,18 +25,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Generate matrices
         id: generate
+        env:
+          DISTRO_IMAGES_JSON: ${{ env.DISTRO_IMAGES_JSON }}
+          EXCLUDED_AMD64_JSON: ${{ env.EXCLUDED_AMD64_JSON }}
+          EXCLUDED_ARM64_JSON: ${{ env.EXCLUDED_ARM64_JSON }}
         run: |
           matrix_amd64="$(scripts/generate-extension-matrix.py \
-            '${{ env.DISTRO_IMAGES_JSON }}' \
-            '${{ env.EXCLUDED_AMD64_JSON }}')"
+            "$DISTRO_IMAGES_JSON" \
+            "$EXCLUDED_AMD64_JSON")"
           echo "matrix_amd64=${matrix_amd64}" >> "$GITHUB_OUTPUT"
 
           matrix_arm64="$(scripts/generate-extension-matrix.py \
-            '${{ env.DISTRO_IMAGES_JSON }}' \
-            '${{ env.EXCLUDED_ARM64_JSON }}')"
+            "$DISTRO_IMAGES_JSON" \
+            "$EXCLUDED_ARM64_JSON")"
           echo "matrix_arm64=${matrix_arm64}" >> "$GITHUB_OUTPUT"
 
   test-extensions-amd64:
@@ -49,24 +55,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Set up Bats
-        uses: bats-core/bats-action@77d6fb60505b4d0d1d73e48bd035b55074bbfb43  # v4.0.0
+        uses: bats-core/bats-action@77d6fb60505b4d0d1d73e48bd035b55074bbfb43  # 4.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build extension image
+        env:
+          EXTENSION: ${{ matrix.extension }}
+          FROM_IMAGE: ${{ matrix.from_image }}
+          IMAGE_NAME: aicage-custom-samples:test-extension-${{ matrix.extension }}
         run: |
           scripts/build-extension.sh \
-            --extension "${{ matrix.extension }}" \
-            --from-image "${{ matrix.from_image }}" \
-            --image "aicage-custom-samples:test-extension-${{ matrix.extension }}"
+            --extension "$EXTENSION" \
+            --from-image "$FROM_IMAGE" \
+            --image "$IMAGE_NAME"
 
       - name: Run extension smoke tests
+        env:
+          EXTENSION: ${{ matrix.extension }}
+          IMAGE_NAME: aicage-custom-samples:test-extension-${{ matrix.extension }}
         run: |
           scripts/test-extension.sh \
-            --extension "${{ matrix.extension }}" \
-            --image "aicage-custom-samples:test-extension-${{ matrix.extension }}"
+            --extension "$EXTENSION" \
+            --image "$IMAGE_NAME"
 
   test-extensions-arm64:
     needs: discover-extension-matrices
@@ -78,21 +93,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Set up Bats
-        uses: bats-core/bats-action@77d6fb60505b4d0d1d73e48bd035b55074bbfb43  # v4.0.0
+        uses: bats-core/bats-action@77d6fb60505b4d0d1d73e48bd035b55074bbfb43  # 4.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build extension image
+        env:
+          EXTENSION: ${{ matrix.extension }}
+          FROM_IMAGE: ${{ matrix.from_image }}
+          IMAGE_NAME: aicage-custom-samples:test-extension-${{ matrix.extension }}
         run: |
           scripts/build-extension.sh \
-            --extension "${{ matrix.extension }}" \
-            --from-image "${{ matrix.from_image }}" \
-            --image "aicage-custom-samples:test-extension-${{ matrix.extension }}"
+            --extension "$EXTENSION" \
+            --from-image "$FROM_IMAGE" \
+            --image "$IMAGE_NAME"
 
       - name: Run extension smoke tests
+        env:
+          EXTENSION: ${{ matrix.extension }}
+          IMAGE_NAME: aicage-custom-samples:test-extension-${{ matrix.extension }}
         run: |
           scripts/test-extension.sh \
-            --extension "${{ matrix.extension }}" \
-            --image "aicage-custom-samples:test-extension-${{ matrix.extension }}"
+            --extension "$EXTENSION" \
+            --image "$IMAGE_NAME"
