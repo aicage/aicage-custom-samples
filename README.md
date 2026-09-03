@@ -49,6 +49,7 @@ Current extension samples in this repository:
 - `gcloud`: Install the Google Cloud CLI
 - `gh`: Install GitHub CLI
 - `grype`: Scan container images, filesystems, and SBOMs for known vulnerabilities
+- `haskell`: Install the Haskell toolchain with GHCup, GHC, Cabal, Stack, and HLS
 - `java17`: Install the Java Development Kit 17
 - `java21`: Install the Java Development Kit 21
 - `nvidia-cuda`: Install NVIDIA CUDA user-space tooling
@@ -73,6 +74,7 @@ Examples/Templates:
 - [gcloud](extensions/gcloud)
 - [gh](extensions/gh)
 - [grype](extensions/grype)
+- [haskell](extensions/haskell)
 - [java17](extensions/java17)
 - [java21](extensions/java21)
 - [nvidia-cuda](extensions/nvidia-cuda)
