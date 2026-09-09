@@ -18,13 +18,13 @@ jobs:
           persist-credentials: false
 
       - name: Ensure workflow actions use immutable refs
-        uses: joshjohanning/ensure-immutable-actions@9f5dad6bb6148bd29ff0d874de6a8cc70af08fa9  # v2.6.2
+        uses: joshjohanning/ensure-immutable-actions@bc90ba67ffdea94121d930e649ba3d6219dcf275  # v2.7.0
         with:
           include-first-party: 'true'
           write-job-summary: 'on-failure-only'
 
       - name: "Test: Lint Dockerfile"
-        uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5  # v3.3.0
+        uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387  # v3.5.0
         with:
           recursive: "true"
 
