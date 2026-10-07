@@ -87,6 +87,7 @@ Examples/Templates:
 Current custom agent samples in this repository:
 
 - `aider`
+- `agy`
 - `amp`
 - `auggie`
 - `cline`
@@ -111,6 +112,7 @@ You can easily add your own custom agent by adding a folder to `~/.aicage-custom
 Examples/Templates:
 
 - [aider](agents/aider)
+- [agy](agents/agy)
 - [amp](agents/amp)
 - [auggie](agents/auggie)
 - [cline](agents/cline)
