@@ -92,7 +92,6 @@ Current custom agent samples in this repository:
 - `crush`
 - `forge`
 - `kimi`
-- `kiro-cli`
 - `vibe`
 
 Use one with:
@@ -115,7 +114,6 @@ Examples/Templates:
 - [crush](agents/crush)
 - [forge](agents/forge)
 - [kimi](agents/kimi)
-- [kiro-cli](agents/kiro-cli)
 - [vibe](agents/vibe)
 - [aicage-image/agents](https://github.com/aicage/aicage-image/tree/main/agents) for the builtin agents.
 
