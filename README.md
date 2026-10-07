@@ -90,6 +90,7 @@ Current custom agent samples in this repository:
 - `amp`
 - `auggie`
 - `cline`
+- `crush`
 - `forge`
 - `kimi`
 - `kiro-cli`
@@ -113,6 +114,7 @@ Examples/Templates:
 - [amp](agents/amp)
 - [auggie](agents/auggie)
 - [cline](agents/cline)
+- [crush](agents/crush)
 - [forge](agents/forge)
 - [kimi](agents/kimi)
 - [kiro-cli](agents/kiro-cli)
