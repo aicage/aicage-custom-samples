@@ -22,7 +22,6 @@
     "**/*.zip",
     "**/*.bin",
 
-    "agents/vibe/version.sh",
     "base-images/act/helpers/get-aicage-release-artifact.sh",
     "base-images/debian-mirror/helpers/get-aicage-release-artifact.sh",
     "base-images/act/helpers/get-aicage-release-artifact.sh",
