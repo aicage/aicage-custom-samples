@@ -88,7 +88,6 @@ Current custom agent samples in this repository:
 
 - `aider`
 - `agy`
-- `auggie`
 - `cline`
 - `crush`
 - `forge`
@@ -112,7 +111,6 @@ Examples/Templates:
 
 - [aider](agents/aider)
 - [agy](agents/agy)
-- [auggie](agents/auggie)
 - [cline](agents/cline)
 - [crush](agents/crush)
 - [forge](agents/forge)
