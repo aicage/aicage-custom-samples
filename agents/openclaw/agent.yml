@@ -1,0 +1,7 @@
+agent_path:
+  directories:
+    - ~/.openclaw
+agent_full_name: OpenClaw
+agent_homepage: https://openclaw.ai/
+base_distro_exclude:
+  - Alpine
