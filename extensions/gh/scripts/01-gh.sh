@@ -13,8 +13,8 @@ elif command -v dpkg >/dev/null 2>&1; then
     chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg &&
     install -d -m 755 /etc/apt/sources.list.d &&
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
-    apt update &&
-    apt install gh -y &&
+    apt-get update &&
+    apt-get install -y gh &&
     apt-get clean &&
     rm -rf /var/lib/apt/lists/*
 elif command -v rpm >/dev/null 2>&1; then
