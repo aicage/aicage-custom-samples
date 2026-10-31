@@ -87,13 +87,11 @@ Examples/Templates:
 Current custom agent samples in this repository:
 
 - `aider`
-- `amp`
-- `auggie`
+- `agy`
 - `cline`
+- `crush`
 - `forge`
 - `kimi`
-- `kiro-cli`
-- `vibe`
 
 Use one with:
 
@@ -110,13 +108,11 @@ You can easily add your own custom agent by adding a folder to `~/.aicage-custom
 Examples/Templates:
 
 - [aider](agents/aider)
-- [amp](agents/amp)
-- [auggie](agents/auggie)
+- [agy](agents/agy)
 - [cline](agents/cline)
+- [crush](agents/crush)
 - [forge](agents/forge)
 - [kimi](agents/kimi)
-- [kiro-cli](agents/kiro-cli)
-- [vibe](agents/vibe)
 - [aicage-image/agents](https://github.com/aicage/aicage-image/tree/main/agents) for the builtin agents.
 
 ### Base-images
