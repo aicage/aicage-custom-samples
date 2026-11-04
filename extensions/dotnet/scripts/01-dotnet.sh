@@ -51,6 +51,7 @@ elif command -v rpm >/dev/null 2>&1; then
     libgcc \
     libstdc++ \
     openssl-libs \
+    openssl3-libs \
     zlib
   dnf clean all
 elif command -v pacman >/dev/null 2>&1; then
