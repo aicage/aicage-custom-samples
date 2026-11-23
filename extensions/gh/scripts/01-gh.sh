@@ -6,7 +6,7 @@ if command -v apk >/dev/null 2>&1; then
   apk add --no-cache github-cli
 elif command -v dpkg >/dev/null 2>&1; then
   # *** Debian ***
-  (type -p wget >/dev/null || (apt update && apt install wget -y)) &&
+  (type -p wget >/dev/null || (apt update && apt install wget -y) ) &&
     install -d -m 755 /etc/apt/keyrings &&
     out=$(mktemp) && wget -nv -O"$out" https://cli.github.com/packages/githubcli-archive-keyring.gpg &&
     tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null <"$out" &&
